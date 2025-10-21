@@ -19,6 +19,15 @@ U_i'(s_i^{*})=\lambda,\qquad \forall\, i\ \text{with } s_i^{*}>0.
 $$
 
 
+Let there be $N$ validators with stake shares $s_i \in [0,1]$ such that
+
+$$ \sum_{i=1}^{N} s_i = 1. $$ 
+
+Each validator $i$ maximizes expected annualized utility 
+
+$$ U_i(s_i,S_{-i}) = s_i R - c_i(s_i) - r_i(s_i,\rho) - p_i(s_i,S_{-i}), 
+$$
+
 where  
 
 - $R$ — base reward rate (issuance + transaction + MEV income);  
