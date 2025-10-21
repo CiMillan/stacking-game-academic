@@ -7,3 +7,7 @@ data/processed/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 .DS_Store
+
+# build/test artifacts
+.coverage
+src/staking_game.egg-info/
