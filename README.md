@@ -12,11 +12,12 @@ We discuss empirical calibration for Ethereum and Cosmos networks and outline ho
 
 ## Model and Core Equations
 
-Let there be $N$ validators with stake shares $s_i \in [0,1]$ such that  
+Let there be $N$ validators with stake shares $s_i \in [0,1]$ such that
 
 $$
-U_i'(s_i^{*})=\lambda,\qquad \forall\, i \text{ with } s_i^{*}>0.
+U_i'(s_i^{*})=\lambda,\qquad \forall\, i\ \text{with } s_i^{*}>0.
 $$
+
 
 where  
 
