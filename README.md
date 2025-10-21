@@ -15,7 +15,7 @@ We discuss empirical calibration for Ethereum and Cosmos networks and outline ho
 Let there be $N$ validators with stake shares $s_i \in [0,1]$ such that  
 
 $$
-U_i(s_i^{*})=ambda,qquad orall, i 	ext{ with } s_i^{*}>0.
+U_i'(s_i^{*})=\lambda,\qquad \forall\, i \text{ with } s_i^{*}>0.
 $$
 
 where  
@@ -40,7 +40,7 @@ $$
 Utility simplifies to
 
 $$
-U_i = R s_i - (a_i + b_i + \gamma_i)s_i^2 .
+U_i'(s_i^{*})=\lambda,\qquad \forall\, i \text{ with } s_i^{*}>0.
 $$
 
 The first-order condition yields the interior best response
@@ -56,7 +56,7 @@ Heterogeneous parameters $(a_i,b_i,\gamma_i)$ generate a stable mixed distributi
 System-wide equilibrium requires equality of marginal utilities:
 
 $$
-U_i'(s_i^{*})=\lambda,\qquad \forall\, i\ \text{with }\ s_i^{*}>0. \tag{2}
+U_i'(s_i^{*})=\lambda,\qquad \forall\, i \text{ with } s_i^{*}>0.
 $$
 
 where $\lambda$ is the common marginal risk-adjusted return. Aggregating across all validators yields the stationary stake distribution
