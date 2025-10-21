@@ -47,3 +47,4 @@ R
 ​
  
 See docs/abstract.md and docs/equations.tex.
+# stacking-game-academic
