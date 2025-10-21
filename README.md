@@ -62,7 +62,7 @@ Heterogeneous parameters $(a_i,b_i,\gamma_i)$ generate a stable mixed distributi
 System-wide equilibrium requires equality of marginal utilities:
 
 $$
-U_i'(s_i^{*}) = \lambda , \qquad \forall\, i \text{ with } s_i^{*}>0 , \tag{2}
+U_i (s_i^{*}) = \lambda , \qquad \forall\, i \text{ with } s_i^{*}>0 , \tag{2}
 $$
 
 where $\lambda$ is the common marginal risk-adjusted return.  
