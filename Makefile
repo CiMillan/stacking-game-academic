@@ -1,43 +1,49 @@
-PY := python3
-VENV := .venv
-PIP := $(VENV)/bin/pip
-PYBIN := $(VENV)/bin/python
+PY ?= python3
+ETH_NODE ?= https://docs-demo.quiknode.pro
+RATED_TOKEN ?=
+COSMOS_CHAIN ?= cosmoshub
+COSMOS_LCD ?= https://cosmos-api.polkachu.com
 
-.PHONY: venv install dev data-templates ingest calibrate sim sim-plot sim-from-cal lint test nb
+.PHONY: eth-snapshot
+eth-snapshot:
+	ETH_NODE=$(ETH_NODE) $(PY) -m src.data.eth_snapshot
+	RATED_TOKEN=$(RATED_TOKEN) $(PY) -m src.data.rated_pull
 
-venv:
-	python3 -m venv $(VENV)
-	. $(VENV)/bin/activate; $(PIP) install --upgrade pip
+.PHONY: hhi
+hhi:
+	$(PY) -m src.data.eth_merge_hhi data/raw/ethereum/validators_$(shell date -u +%F).jsonl
 
-install: venv
-	. $(VENV)/bin/activate; $(PIP) install -e ".[dev]"
+.PHONY: rated-hhi
+rated-hhi:
+	$(PY) -m src.data.rated_hhi data/raw/ethereum/rated_nodeOperator_$(shell date -u +%F).jsonl
 
-dev: install
-	. $(VENV)/bin/activate; python -m ipykernel install --user --name staking-game --display-name "Python (staking-game)"
+.PHONY: hhi-all
+hhi-all: hhi rated-hhi
 
-data-templates:
-	@echo "Wrote example CSVs to data/raw/... (overwrite with real exports)."
+.PHONY: rated-summarize
+rated-summarize:
+	$(PY) -m src.data.summarize_concentration data/processed/ethereum/rated_operator_hhi_$(shell date -u +%F).csv
 
-ingest:
-	$(PYBIN) -m staking_game.ingest --eth-validators data/raw/ethereum/validators.csv --outdir data/processed
+.PHONY: calibrate-penalty
+calibrate-penalty:
+	$(PY) -m src.data.calibrate_penalty 0.027255 0.0961 0.25 1.0 1.0
 
-calibrate:
-	$(PYBIN) -m staking_game.calibrate --operators data/processed/operators_normalized.csv --R 0.042 --outdir data/processed
+.PHONY: mev-pull
+mev-pull:
+	$(PY) -m src.data.mev_relay_pull
 
-sim:
-	$(PYBIN) -m staking_game.sim --n 200 --R 0.042 --mean-a 0.020 --mean-b 0.030 --mean-gamma 0.015 --cv 0.6 --seed 42 --out runs
+.PHONY: mev-merge
+mev-merge:
+	$(PY) -m src.data.mev_merge_owner data/raw/ethereum/validators_$(shell date -u +%F).jsonl 'data/raw/ethereum/mev/*_$(shell date -u +%F).jsonl'
 
-sim-plot:
-	$(PYBIN) -m staking_game.sim --n 200 --R 0.042 --mean-a 0.020 --mean-b 0.030 --mean-gamma 0.015 --cv 0.6 --seed 42 --out runs --plot
+.PHONY: stake-quality
+stake-quality:
+	$(PY) -m src.data.quality_adjusted_stake data/processed/ethereum/owner_hhi_$(shell date -u +%F).csv data/processed/ethereum/mev_owner_deliveries_$(shell date -u +%F).csv 0.2
 
-sim-from-cal:
-	$(PYBIN) -m staking_game.sim_from_cal --params data/processed/params_summary.csv --R 0.042 --out runs --plot
+.PHONY: cosmos-snapshot
+cosmos-snapshot:
+	COSMOS_CHAIN=$(COSMOS_CHAIN) COSMOS_LCD=$(COSMOS_LCD) $(PY) -m src.data.cosmos_staking_pull
 
-lint:
-	. $(VENV)/bin/activate; ruff check src
-
-test:
-	. $(VENV)/bin/activate; pytest -q || true
-
-nb:
-	@echo "Create notebooks in ./notebooks and use kernel: Python (staking-game)"
+.PHONY: cosmos-hhi
+cosmos-hhi:
+	$(PY) -m src.data.cosmos_hhi data/raw/cosmos/$(COSMOS_CHAIN)_validators_$(shell date -u +%F).jsonl $(COSMOS_CHAIN)

@@ -1,11 +1,12 @@
-# venv / python
-.venv/
+# Python
 __pycache__/
 *.pyc
-.ipynb_checkpoints/
-# runs & figures
-runs/
-figures/*.png
-# OS / editor
-.DS_Store
-.vscode/
+
+# Data
+data/raw/
+data/processed/*_checkpoint*
+data/raw/ethereum/.rated_checkpoint.txt
+
+# Secrets / env
+.env
+.env.*
