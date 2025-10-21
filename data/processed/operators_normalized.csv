@@ -1,1 +1,6 @@
-operator,stake_eth,share,apr,client,region,missed_rate,slashed
+operator,share,stake_eth,apr,client,region,missed_rate,slashed
+ExampleOpA,0.37735849056603776,100000,0.041,Lighthouse,EU,0.005,0
+ExampleOpB,0.2830188679245283,75000,0.04,Prysm,US,0.007,0
+ExampleOpC,0.18867924528301888,50000,0.044,Teku,US,0.004,0
+ExampleOpD,0.09433962264150944,25000,0.043,Lodestar,APAC,0.006,0
+ExampleOpE,0.05660377358490566,15000,0.045,Lighthouse,EU,0.01,0

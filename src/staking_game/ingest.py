@@ -6,22 +6,22 @@ import numpy as np
 
 def read_ethereum_validators(path: Path) -> pd.DataFrame:
     df = pd.read_csv(path)
-    # standardize columns
-    cols = {c.lower(): c for c in df.columns}
-    for need in ["operator"]:
-        if need not in [c.lower() for c in df.columns]:
-            raise ValueError(f"Missing required column '{need}' in {path}")
-    # unify names
+
+    # require operator column (any case)
+    lower = {c.lower(): c for c in df.columns}
+    if "operator" not in lower:
+        raise ValueError(f"Missing required column 'operator' in {path}")
+    # rename commonly used columns
     ren = {}
     for c in df.columns:
         cl = c.lower()
         if cl in ("share","stake_share","stake_pct","pct"):
             ren[c] = "share"
-        elif cl in ("stake","stake_eth","effective_balance_eth","balance_eth"):
+        elif cl in ("stake","stake_eth","effective_balance_eth","balance_eth","stake_ether"):
             ren[c] = "stake_eth"
         elif cl == "apr":
             ren[c] = "apr"
-        elif cl == "missed_rate":
+        elif cl in ("missed_rate","miss_rate","missed"):
             ren[c] = "missed_rate"
         elif cl == "slashed":
             ren[c] = "slashed"
@@ -30,20 +30,33 @@ def read_ethereum_validators(path: Path) -> pd.DataFrame:
         elif cl == "region":
             ren[c] = "region"
     df = df.rename(columns=ren)
-    # compute shares if missing
-    if "share" not in df.columns and "stake_eth" in df.columns:
-        total = df["stake_eth"].sum()
-        df["share"] = df["stake_eth"] / total if total > 0 else 0.0
-    # coerce types
-    for c in ("share","apr","missed_rate"):
+
+    # coerce numeric
+    for c in ("share","stake_eth","apr","missed_rate"):
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors="coerce")
-    if "slashed" in df.columns:
-        df["slashed"] = pd.to_numeric(df["slashed"], errors="coerce").fillna(0).astype(int)
-    # drop empties and renormalize shares
+
+    # compute shares if missing OR not usable
+    need_share = False
+    if "share" not in df.columns:
+        need_share = True
+    else:
+        # if share exists but is all NaN or non-positive, recompute
+        if df["share"].isna().all() or (pd.to_numeric(df["share"], errors="coerce").fillna(0) <= 0).all():
+            need_share = True
+
+    if need_share:
+        if "stake_eth" not in df.columns:
+            raise ValueError("No 'share' and no 'stake_eth' to compute from.")
+        total = pd.to_numeric(df["stake_eth"], errors="coerce").sum()
+        df["share"] = pd.to_numeric(df["stake_eth"], errors="coerce") / total if total > 0 else np.nan
+
+    # tidy + filter
+    df = df[["operator","share"] + [c for c in ("stake_eth","apr","client","region","missed_rate","slashed") if c in df.columns]]
     df = df.dropna(subset=["operator","share"])
+    df = df[df["share"] > 0]
     df = df.sort_values("share", ascending=False).reset_index(drop=True)
-    # renormalize to sum to 1
+    # renormalize to 1
     ssum = df["share"].sum()
     if ssum > 0:
         df["share"] = df["share"] / ssum
@@ -51,8 +64,9 @@ def read_ethereum_validators(path: Path) -> pd.DataFrame:
 
 def write_normalized(df: pd.DataFrame, outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
-    df.to_csv(outdir / "operators_normalized.csv", index=False)
-    return outdir / "operators_normalized.csv"
+    out = outdir / "operators_normalized.csv"
+    df.to_csv(out, index=False)
+    return out
 
 def main():
     ap = argparse.ArgumentParser(description="Normalize raw validator CSVs into a unified operators table.")
@@ -60,8 +74,11 @@ def main():
                     help="Path to Ethereum validators CSV")
     ap.add_argument("--outdir", type=str, default="data/processed", help="Output directory")
     args = ap.parse_args()
+
     df = read_ethereum_validators(Path(args.eth_validators))
     out = write_normalized(df, Path(args.outdir))
-    print(f"[ingest] wrote {out} ({len(df)} operators), top-5 share={df.head(5)['share'].sum():.3f}")
+    top5 = df.head(5)["share"].sum() if not df.empty else 0.0
+    print(f"[ingest] wrote {out} ({len(df)} operators), top-5 share={top5:.3f}")
+
 if __name__ == "__main__":
     main()
