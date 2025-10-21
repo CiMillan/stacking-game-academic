@@ -62,36 +62,9 @@ Heterogeneous parameters $(a_i,b_i,\gamma_i)$ generate a stable mixed distributi
 System-wide equilibrium requires equality of marginal utilities:
 
 $$
-U_i (s_i^{*}) = \lambda , \qquad \forall\, i \text{ with } s_i^{*}>0 , \tag{2}
+\tag{2} U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0
 $$
 
-$$
-U_i (s_i^{\_}) = \lambda ,  \qquad \forall  i \text{ with } s_i^{\_} > 0 , \tag{2}
-$$
-
-$$
-U_i (s_i^{\textunderscore}) = \lambda ,  \qquad \forall  i \text{ with } s_i^{\textunderscore} > 0 , \tag{2}
-$$
-
-$$
-U_i (s_i') = \lambda ,  \qquad \forall  i \text{ with } s_i' > 0 , \tag{2}
-$$
-
-`$$`
-`U_i (s_i^{\_}) = \lambda ,  \qquad \forall  i \text{ with } s_i^{\_} > 0 , \tag{2}`
-`$$`
-
-$$
-U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0
-$$
-
-$$
-U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0 \tag{2}
-$$
-
-$$
-U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0
-$$
 
 $$
 \begin{aligned}
