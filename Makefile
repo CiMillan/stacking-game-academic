@@ -53,3 +53,17 @@ daily: eth-snapshot hhi rated-hhi cosmos-snapshot cosmos-hhi
 
 .PHONY: daily-plus-mev
 daily-plus-mev: daily mev-merge stake-quality
+
+.PHONY: eth-effect
+eth-effect:
+	ETH_NODE=$(ETH_NODE) EPOCHS_BACK=256 $(PY) -m src.data.eth_effectiveness_pull
+
+
+.PHONY: effect-merge
+effect-merge:
+	@if [ ! -f data/processed/ethereum/effectiveness_$(shell date -u +%F).jsonl ]; then \
+	  echo "effect-merge: skipped (no effectiveness file). Run 'make eth-effect' with a Lighthouse endpoint first."; \
+	else \
+	  $(PY) -m src.data.effectiveness_owner_merge data/raw/ethereum/validators_$(shell date -u +%F).jsonl data/processed/ethereum/effectiveness_$(shell date -u +%F).jsonl data/processed/ethereum/owner_hhi_$(shell date -u +%F).csv; \
+	fi
+
