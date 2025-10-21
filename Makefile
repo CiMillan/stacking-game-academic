@@ -47,3 +47,9 @@ cosmos-snapshot:
 .PHONY: cosmos-hhi
 cosmos-hhi:
 	$(PY) -m src.data.cosmos_hhi data/raw/cosmos/$(COSMOS_CHAIN)_validators_$(shell date -u +%F).jsonl $(COSMOS_CHAIN)
+
+.PHONY: daily
+daily: eth-snapshot hhi rated-hhi cosmos-snapshot cosmos-hhi
+
+.PHONY: daily-plus-mev
+daily-plus-mev: daily mev-merge stake-quality

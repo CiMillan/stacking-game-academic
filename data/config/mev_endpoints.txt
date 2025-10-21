@@ -1,0 +1,6 @@
+# name                                    url
+flashbots_proposer_delivered              https://boost-relay.flashbots.net
+# add more relays here (same base, script appends the path):
+# beaverbuild_proposer_delivered          https://relay.beaverbuild.org
+# bloxroute_maxprofit_proposer_delivered  https://bloxroute.max-profit.blxrbdn.com
+# aestus_proposer_delivered               https://aestus.live

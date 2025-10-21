@@ -1,0 +1,4 @@
+Gini: 0.1779
+Nakamoto >33%: 46
+Nakamoto >50%: 76
+Mean risk-adjusted APR: 4.17%
