@@ -1,13 +1,11 @@
-pycache/
-.pyc
+# venv / python
 .venv/
+__pycache__/
+*.pyc
 .ipynb_checkpoints/
-data/raw/
-data/processed/
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+# runs & figures
+runs/
+figures/*.png
+# OS / editor
 .DS_Store
-
-# build/test artifacts
-.coverage
-src/staking_game.egg-info/
+.vscode/

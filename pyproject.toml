@@ -1,28 +1,26 @@
 [project]
 name = "staking-game"
 version = "0.1.0"
-description = "Risk-adjusted game-theoretic model for validator concentration"
+description = "Simulation framework for PoS validator concentration as a risk-adjusted equilibrium."
 readme = "README.md"
 requires-python = ">=3.9"
-authors = [{name = "Your Name"}]
-license = {text = "MIT"}
 dependencies = [
-  "numpy>=1.26",
-  "scipy>=1.11",
+  "numpy>=1.24",
   "pandas>=2.0",
-  "matplotlib>=3.8",
-  "pyyaml>=6.0",
+  "matplotlib>=3.7"
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.0","pytest-cov>=4.0","black>=24.0","ruff>=0.4"]
+dev = [
+  "ipykernel",
+  "jupyter",
+  "pytest",
+  "ruff"
+]
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.ruff]
+line-length = 100

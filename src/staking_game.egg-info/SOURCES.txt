@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+src/staking_game/__init__.py
+src/staking_game/model.py
+src/staking_game/plotting.py
+src/staking_game/simulate.py
+src/staking_game.egg-info/PKG-INFO
+src/staking_game.egg-info/SOURCES.txt
+src/staking_game.egg-info/dependency_links.txt
+src/staking_game.egg-info/requires.txt
+src/staking_game.egg-info/top_level.txt
+tests/test_model.py
