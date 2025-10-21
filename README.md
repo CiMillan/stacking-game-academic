@@ -157,7 +157,7 @@ High $\epsilon$ (delegators avoid concentration) implies stronger decentralizati
 2. Compute best responses
 
 $$
-s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
+s_i^{\ast} \=\  \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
 $$
 
 3. **Normalize** — enforce $\sum_{i=1}^{N} s_i^{*} = 1$ .  
