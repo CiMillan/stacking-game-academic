@@ -2,7 +2,7 @@
 
 ## Abstract
 
-We model **Proof-of-Stake (PoS) validation** as a strategic game in which each validator maximizes *risk-adjusted utility* rather than raw block rewards.  
+We model **Proof-of-Stake (PoS) validation** as a strategic game in which each validator maximizes **risk-adjusted utility** rather than raw block rewards.  
 While block-proposal probability grows linearly with staked share, operational complexity, correlated slashing risk, and delegator aversion to concentration introduce **convex costs** that bound rational growth.  
 Using a quadratic approximation of these costs, we show the existence of a finite *interior equilibrium stake share* $s_i^{*}$ for each validator and derive comparative-statics conditions under which decentralization remains stable.  
 Our framework bridges validator micro-economics and network-level resilience: **decentralization emerges as a Nash equilibrium** when risk and social penalties rise faster than linear rewards.  
