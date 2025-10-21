@@ -155,13 +155,37 @@ High $\epsilon$ (delegators avoid concentration) implies stronger decentralizati
 1. **Initialize parameters** — draw $(a_i , b_i , \gamma_i)$ from fitted distributions across the top $N$ operators.  
 2. **Compute best responses**
 
+2. **Compute best responses**
+
+$$
+s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
+
+2. **Compute best responses**
+
+$\displaystyle
+s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
+$
+
+2. Compute best responses
+
+$$
+s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
+$$
+
+## Option 4: Use code fence for math
+````latex
+2. **Compute best responses**
+
+```math
+s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
+
    $$
    s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
    $$
 
-3. **Normalize** — enforce $\sum_{i=1}^{N} s_i^{*} = 1$ .  
-4. **Iterate with feedback** — allow $b_i$ and $\gamma_i$ to adjust endogenously as concentration increases, introducing mild interdependence.  
-5. **Output metrics** — stake-share histogram; Gini coefficient; Nakamoto coefficient (minimum operators controlling $>33\%$ or $>50\%$); system-level expected risk-adjusted return.
+4. **Normalize** — enforce $\sum_{i=1}^{N} s_i^{*} = 1$ .  
+5. **Iterate with feedback** — allow $b_i$ and $\gamma_i$ to adjust endogenously as concentration increases, introducing mild interdependence.  
+6. **Output metrics** — stake-share histogram; Gini coefficient; Nakamoto coefficient (minimum operators controlling $>33\%$ or $>50\%$); system-level expected risk-adjusted return.
 
 ---
 
