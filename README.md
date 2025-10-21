@@ -73,8 +73,8 @@ Aggregating across all validators yields the stationary stake distribution
 
 $$
 \begin{aligned}
-\mathbf{s}^{\ast} = (s_1^{\ast},\ldots,s_N^{\ast}), \qquad
-\sum_i s_i^{\ast} = 1
+\mathbf{s}^{\ast} = (s_1^{\ast},\ldots,s_N^{\ast}), satisfying \qquad
+\sum_i s_i^{\ast} = 1.
 \end{aligned}
 $$
 
