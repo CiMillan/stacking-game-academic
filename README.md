@@ -66,7 +66,7 @@ U_i (s_i^{*}) = \lambda , \qquad \forall\, i \text{ with } s_i^{*}>0 , \tag{2}
 $$
 
 $$
-U_i'(s_i^{*})=\lambda,\qquad \forall\, i\ \text{with } s_i^{*}>0. \tag{2}
+U_i (s_i^{\_}) = \lambda ,  \qquad \forall  i \text{ with } s_i^{\_} > 0 , \tag{2}
 $$
 
 where $\lambda$ is the common marginal risk-adjusted return.  
