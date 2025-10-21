@@ -32,9 +32,15 @@ calibrate-penalty:
 mev-pull:
 	$(PY) -m src.data.mev_relay_pull
 
+
 .PHONY: mev-merge
 mev-merge:
-	$(PY) -m src.data.mev_merge_owner data/raw/ethereum/validators_$(shell date -u +%F).jsonl 'data/raw/ethereum/mev/*_$(shell date -u +%F).jsonl'
+	@if ls data/raw/ethereum/mev/*_$(shell date -u +%F).jsonl >/dev/null 2>&1; then \
+	  $(PY) -m src.data.mev_merge_owner data/raw/ethereum/validators_$(shell date -u +%F).jsonl 'data/raw/ethereum/mev/*_$(shell date -u +%F).jsonl'; \
+	else \
+	  echo "mev-merge: skipped (no MEV files yet). Run 'make mev-pull' or wait for your scraper."; \
+	fi
+
 
 .PHONY: stake-quality
 stake-quality:
@@ -67,3 +73,6 @@ effect-merge:
 	  $(PY) -m src.data.effectiveness_owner_merge data/raw/ethereum/validators_$(shell date -u +%F).jsonl data/processed/ethereum/effectiveness_$(shell date -u +%F).jsonl data/processed/ethereum/owner_hhi_$(shell date -u +%F).csv; \
 	fi
 
+
+.PHONY: daily
+daily: eth-snapshot hhi rated-hhi cosmos-snapshot cosmos-hhi mev-pull mev-merge stake-quality effect-merge
