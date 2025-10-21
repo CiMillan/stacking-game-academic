@@ -63,7 +63,7 @@ System-wide equilibrium requires equality of marginal utilities:
 
 $$
 \begin{aligned}
-U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0
+U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0,
 \end{aligned}
 \tag{2}
 $$
@@ -76,7 +76,6 @@ $$
 \mathbf{s}^{\ast} = (s_1^{\ast},\ldots,s_N^{\ast}), \qquad
 \sum_i s_i^{\ast} = 1
 \end{aligned}
-\tag{1}
 $$
 
 ---
