@@ -76,6 +76,14 @@ $$
 \mathbf{s}^{*} = (s_1^{*},\ldots,s_N^{*}), \qquad
 \sum_i s_i^{*} = 1
 \end{aligned}
+\tag{1}
+$$
+
+$$
+\begin{aligned}
+\mathbf{s}^{*} = (s_1^{*},\ldots,s_N^{*}), \qquad
+\sum_i s_i^{*} = 1
+\end{aligned}
 \tag{1}.
 $$
 
