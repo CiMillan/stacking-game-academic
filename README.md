@@ -61,21 +61,15 @@ Heterogeneous parameters $(a_i,b_i,\gamma_i)$ generate a stable mixed distributi
 
 System-wide equilibrium requires equality of marginal utilities:
 
-
 $$
-U_i'(s_i^{*}) = \lambda , \qquad \forall\, i \text{ with } s_i^{*}>0 , \tag{2}
-$$
-
-
-where $\lambda$ is the common marginal risk-adjusted return.  
-Aggregating across all validators yields the stationary stake distribution  
-
-
-$$
-\mathbf{s}^{*} = (s_1^{*},\ldots,s_N^{*}), \qquad
-\sum_i s_i^{*} = 1 .
+U_i'(s_i^{*})=\lambda,\qquad \forall\, i\ \text{with }\ s_i^{*}>0. \tag{2}
 $$
 
+where $\lambda$ is the common marginal risk-adjusted return. Aggregating across all validators yields the stationary stake distribution
+
+$$
+\boldsymbol{s}^{*}=(s_1^{*},\ldots,s_N^{*}),\qquad \sum_{i=1}^{N} s_i^{*}=1.
+$$
 
 ---
 
