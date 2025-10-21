@@ -24,3 +24,23 @@ build-backend = "setuptools.build_meta"
 
 [tool.ruff]
 line-length = 100
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "matplotlib>=3.7",
+  "requests>=2.31"
+]
+[project.optional-dependencies]
+dev = [
+  "ipykernel",
+  "jupyter",
+  "pytest",
+  "ruff"
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 100
