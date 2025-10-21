@@ -79,18 +79,6 @@ $$
 \tag{1}
 $$
 
-$$
-\begin{aligned}
-\mathbf{s}^{\star} = (s_1^{\star},\ldots,s_N^{\star}), \qquad
-\sum_i s_i^{\star} = 1
-\end{aligned}
-\tag{1}
-$$
-
-$$
-\mathbf{s}^{\ast} = (s_1^{\ast},\ldots,s_N^{\ast}), \qquad \sum_i s_i^{\ast} = 1 \tag{1}
-$$
-
 ---
 
 ## Interpretation
