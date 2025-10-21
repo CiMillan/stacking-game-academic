@@ -52,7 +52,7 @@ $$
 The first-order condition yields the interior best response
 
 $$
-\boxed{\, s_i^{*} = \dfrac{R}{2(a_i + b_i + \gamma_i)} \,} \tag{1}
+\boxed{\ s_i^{*} = \dfrac{R}{2(a_i + b_i + \gamma_i)} \,} \tag{1}
 $$
 
 producing a finite equilibrium share for each validator.  
@@ -60,11 +60,6 @@ Higher gross rewards $R$ enlarge $s_i^{*}$; higher operational, risk, or social 
 Heterogeneous parameters $(a_i,b_i,\gamma_i)$ generate a stable mixed distribution of validator sizes.
 
 System-wide equilibrium requires equality of marginal utilities:
-
-$$
-\tag{2} U_i(s_i') = \lambda , \qquad \forall i \text{ with } s_i' > 0
-$$
-
 
 $$
 \begin{aligned}
