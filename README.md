@@ -153,18 +153,6 @@ High $\epsilon$ (delegators avoid concentration) implies stronger decentralizati
 ### 4.3 Simulation Procedure
 
 1. **Initialize parameters** — draw $(a_i , b_i , \gamma_i)$ from fitted distributions across the top $N$ operators.  
-2. **Compute best responses**
-
-2. **Compute best responses**
-
-$$
-s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
-
-2. **Compute best responses**
-
-$\displaystyle
-s_i^{\ast} \;=\; \frac{R_i}{2 \bigl( a_i + b_i + \gamma_i \bigr)} .
-$
 
 2. Compute best responses
 
