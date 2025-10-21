@@ -1,0 +1,14 @@
+R: 0.03
+operators:
+  - name: alpha
+    a: 0.005
+    b: 0.010
+    gamma: 0.004
+  - name: beta
+    a: 0.004
+    b: 0.006
+    gamma: 0.006
+  - name: gamma
+    a: 0.006
+    b: 0.012
+    gamma: 0.003
