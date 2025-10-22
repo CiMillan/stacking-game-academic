@@ -305,3 +305,5 @@ Several extensions follow naturally:
 
 - **Agent-based simulation.** Build an open-source simulator where validators, delegators, and protocol rules co-evolve. This would allow stress-testing of protocol design choices before deployment.
 
+
+See [BigQuery + Lighthouse reproduction guide](docs/BIGQUERY_REPRO.md) for a no-API version of the data pipeline.
