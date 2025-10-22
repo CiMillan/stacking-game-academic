@@ -1,5 +1,10 @@
 # The Staking Game: A Risk-Adjusted Equilibrium of Validator Concentration in Proof-of-Stake Networks
 
+<!-- quick-links -->
+**Quick links:** [§4.1 Data Inputs](#41-data-inputs) · [§4.3 Reward Baseline](#43-reward-baseline) · [§5.1 Concentration (HHI)](#51-concentration-hhi) · [§5.2 Participation-adjusted HHI](#52-participation-adjusted-concentration) · [§5.3 Size–Flow Elasticity](#53-size–flow-elasticity-of-delegations) · [§5.4 LST-Adjusted Shares](#54-lst-adjusted-stake-shares) · [§5.5 Diversity Metrics](#55-diversity—client-mix--geoasn-entropy) · [§5.6 DVT Cluster Effects](#56-diversity—dvt-cluster-effects)
+
+
+
 ## Abstract
 
 We model **Proof-of-Stake (PoS) validation** as a strategic game in which each validator maximizes **risk-adjusted utility** rather than raw block rewards.  
@@ -95,12 +100,28 @@ We propose a data-driven simulation framework to estimate these parameters and r
 
 ### 4.1 Data Inputs
 
+
+**Traceability map (inputs → code/data → results)**
+
+| Input category | Primary source(s) | Repo artifact(s) | Consumed by | Appears in results |
+|---|---|---|---|---|
+| Validator performance (participation, inclusion distance) | Rated.Network | `data/raw/ethereum/rated_nodeOperator_2025-10-21.jsonl` | `notebooks/calibration/01_participation_adjusted_hhi.ipynb` | §5.2 Concentration (participation-adjusted HHI), Fig. 3 |
+| Validator stake shares (effective balances) | Beacon (QuickNode) | `data/raw/ethereum/beacon/validators_2025-10-21.jsonl` | `src/metrics/hhi.py`, `notebooks/metrics/00_hhi_eth_cosmos.ipynb` | §5.1 Concentration (HHI), Table 1 (ETH ≈ 0.0273; Cosmos ≈ 0.042) |
+| Inflows / Delegations | Cosmos Hub indexer / ETH staking dashboards | `data/processed/*/delegations.parquet` *(planned)* | `notebooks/calibration/02_inflows_vs_size.ipynb` | §5.3 Size-flow elasticity (planned) |
+| LST allocations (Lido, Rocket Pool) | Protocol reports / APIs | `data/processed/eth/lst_allocations.parquet` *(planned)* | `notebooks/calibration/03_lst_adjusted_shares.ipynb` | §5.4 LST-adjusted concentration (planned) |
+| Issuance curve | Protocol spec/data | `data/refs/eth_issuance_curve.csv` *(planned)* | `src/model/issuance.py`, `notebooks/market/01_fee_mev_inputs.ipynb` | §4.3 Reward baseline (planned) |
+| Priority fees | On-chain blocks dataset | `data/processed/eth/priority_fees_hourly.parquet` *(planned)* | `notebooks/market/01_fee_mev_inputs.ipynb` | §4.3 Inputs to R(s) (planned) |
+| MEV distributions | MEV-Boost dashboards / datasets | `data/processed/eth/mev_boost_distributions.parquet` *(planned)* | `notebooks/market/01_fee_mev_inputs.ipynb` | §4.3 Inputs to R(s) (planned) |
+| Client mix / Region / ASN | Rated.Network | `data/processed/eth/rated_client_geo.parquet` *(planned)* | `notebooks/diversity/01_client_geo_entropy.ipynb` | §5.5 Diversity metrics (planned) |
+| Relay diversity | Relay datasets | `data/processed/eth/relay_share_time.parquet` *(planned)* | `notebooks/diversity/02_relay_diversity.ipynb` | §5.5 Diversity metrics (planned) |
+| DVT topology | Operator docs / APIs | `data/processed/eth/dvt_clusters.json` *(planned)* | `notebooks/diversity/03_dvt_effects.ipynb` | §5.6 DVT effects (planned) |
+
 We draw from publicly available validator datasets:
 
-- **Validator performance metrics** — uptime, missed duties, inclusion distance, slashing records (Ethereum BeaconChain API, Cosmos Hub indexers) .  
-- **Stake shares and inflows** — active validator balances, delegation histories, LST allocations (Lido, Rocket Pool, Cosmos delegations) .  
-- **Market data** — issuance curve, average priority fees, realized MEV distributions (MEV-Boost dashboards) .  
-- **Diversity indicators** — client mix, region/ASN, relay diversity, DVT cluster topology .
+- **Validator performance metrics** — uptime, missed duties, inclusion distance, slashing records *(see Traceability Map; results in §5.2 / Fig. 3)*
+- **Stake shares and inflows** — active validator balances, delegation histories, LST allocations *(§5.1–§5.4)*
+- **Market data** — issuance curve, average priority fees, realized MEV distributions *(§4.3)*
+- **Diversity indicators** — client mix, region/ASN, relay diversity, DVT cluster topology *(§5.5–§5.6)*
 
 These inputs allow us to approximate both returns and risks at the validator and network level.
 

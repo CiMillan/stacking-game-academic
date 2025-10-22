@@ -10,3 +10,4 @@ data/raw/ethereum/.rated_checkpoint.txt
 # Secrets / env
 .env
 .env.*
+README.md.bak
