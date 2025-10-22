@@ -11,3 +11,4 @@ data/raw/ethereum/.rated_checkpoint.txt
 .env
 .env.*
 README.md.bak
+.venv/
