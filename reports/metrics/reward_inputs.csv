@@ -1,0 +1,2 @@
+network,as_of,issuance_rate_annual,avg_priority_fee_rate,avg_mev_rate,notes
+ethereum,2025-10-21,0.004,0.002,1.0,MEV rate is a placeholder proxy; normalize to (issuance+tips+mev) later.
