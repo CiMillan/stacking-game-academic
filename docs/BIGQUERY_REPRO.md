@@ -19,7 +19,7 @@ WHERE DATE(block_timestamp) >= ...
 ```
 to stay in the free tier.
 
-1) Public datasets
+## 1) Public datasets
    
 | Layer     | Dataset                                           | What it contains                                    |
 | --------- | ------------------------------------------------- | --------------------------------------------------- |
@@ -28,7 +28,7 @@ to stay in the free tier.
 | Labels    | `eden-data-public.ethereum_auxiliary.tags_pubkey` | partial pubkey→name tags                            |
 | Consensus | *(none public yet)*                               | run Lighthouse for validator inclusion metrics      |
 
-2) Example: MEV deliveries per proposer
+## 2) Example: MEV deliveries per proposer
 ```
 SELECT
   DATE(p.block_timestamp) AS d,
@@ -51,7 +51,7 @@ bq query --nouse_legacy_sql --format=csv \
  WHERE DATE(block_timestamp)>=DATE_SUB(CURRENT_DATE(),INTERVAL 7 DAY)
  GROUP BY 1,2' > data/processed/ethereum/mev_deliveries.csv
 ```
-3) Compute HHI in SQL
+## 3) Compute HHI in SQL
 ```
 WITH shares AS (
   SELECT
@@ -63,7 +63,7 @@ WITH shares AS (
 )
 SELECT SUM(share*share) AS hhi, 1/SUM(share*share) AS n_effective FROM shares;
 ```
-4) Execution-layer checks
+## 4) Execution-layer checks
 Blocks/day & gas:
 
 ```
@@ -81,7 +81,7 @@ WHERE token_address='0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'
   AND DATE(block_timestamp)>=DATE_SUB(CURRENT_DATE(),INTERVAL 30 DAY)
 GROUP BY 1 ORDER BY 1;
 ```
-5) When you do need Lighthouse
+## 5) When you do need Lighthouse
 For attestation inclusion (participation rate, inclusion distance):
 
 ```
@@ -90,7 +90,7 @@ curl -s "$ETH_NODE/lighthouse/validator_inclusion/123456" | jq .
 ```
 Our repo’s src/data/eth_effectiveness_pull.py expects this endpoint to exist.
 
-6) BigQuery vs Lighthouse
+## 6) BigQuery vs Lighthouse
    
 | Capability                | BigQuery   | Lighthouse |
 | ------------------------- | ---------- | ---------- |
@@ -101,7 +101,7 @@ Our repo’s src/data/eth_effectiveness_pull.py expects this endpoint to exist.
 | Pubkey labeling           | ⚠️ partial | ❌          |
 
 
-7) Optional Makefile helper
+## 7) Optional Makefile helper
 ```
 .PHONY: bq-mev
 bq-mev:
