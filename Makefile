@@ -76,3 +76,6 @@ effect-merge:
 
 .PHONY: daily
 daily: eth-snapshot hhi rated-hhi cosmos-snapshot cosmos-hhi mev-pull mev-merge stake-quality effect-merge
+
+anchors:
+\t@python scripts/check_anchors.py
