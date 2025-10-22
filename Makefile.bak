@@ -76,13 +76,6 @@ effect-merge:
 
 .PHONY: daily
 daily: eth-snapshot hhi rated-hhi cosmos-snapshot cosmos-hhi mev-pull mev-merge stake-quality effect-merge
-\t@python scripts/check_anchors.py
-.PHONY: anchors
-# Prefer venv python; fallback to system python or python3
-PYTHON := $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; \
-elif command -v python >/dev/null 2>&1; then command -v python; \
-else command -v python3; fi)
 
 anchors:
-	@echo "Using PYTHON=$(PYTHON)"
-	@$(PYTHON) scripts/check_anchors.py
+\t@python scripts/check_anchors.py
