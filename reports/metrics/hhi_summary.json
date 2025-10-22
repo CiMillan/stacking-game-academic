@@ -1,0 +1,20 @@
+[
+  {
+    "label": "ETH \u2014 Operator level",
+    "file": "data/processed/ethereum/rated_operator_hhi_2025-10-21.csv",
+    "HHI": 0.027255302189753697,
+    "N_eff": 36.690108700241744
+  },
+  {
+    "label": "ETH \u2014 Owner level",
+    "file": "data/processed/ethereum/owner_hhi_2025-10-21.csv",
+    "HHI": 0.07273213285943393,
+    "N_eff": 13.749081192664242
+  },
+  {
+    "label": "Cosmos Hub",
+    "file": "data/processed/cosmos/cosmoshub_hhi_2025-10-21.csv",
+    "HHI": 0.04197265576926127,
+    "N_eff": 23.825035172836294
+  }
+]
