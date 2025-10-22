@@ -7,12 +7,12 @@ It uses only **Google BigQuery public datasets** and (optionally) a **Lighthouse
 
 ## 0) Setup (free-tier friendly)
 
-1. Make a free GCP project → enable **BigQuery**.  
-2. Optional CLI auth:
+- Make a free GCP project → enable **BigQuery**.  
+- Optional CLI auth:
    ```
    gcloud auth application-default login
    ```
-Always limit queries with:
+- Always limit queries with:
 
 ```
 WHERE DATE(block_timestamp) >= ...
@@ -20,14 +20,15 @@ WHERE DATE(block_timestamp) >= ...
 to stay in the free tier.
 
 1) Public datasets
-   | Layer     | Dataset                                           | What it contains                                    |
+   
+| Layer     | Dataset                                           | What it contains                                    |
 | --------- | ------------------------------------------------- | --------------------------------------------------- |
 | Execution | `bigquery-public-data.crypto_ethereum.*`          | blocks, transactions, logs, token_transfers, traces |
 | MEV-Boost | `eden-data-public.mev_boost.*`                    | payloads & bids, builders, proposers                |
 | Labels    | `eden-data-public.ethereum_auxiliary.tags_pubkey` | partial pubkey→name tags                            |
 | Consensus | *(none public yet)*                               | run Lighthouse for validator inclusion metrics      |
 
-3) Example: MEV deliveries per proposer
+2) Example: MEV deliveries per proposer
 ```
 SELECT
   DATE(p.block_timestamp) AS d,
@@ -90,12 +91,13 @@ curl -s "$ETH_NODE/lighthouse/validator_inclusion/123456" | jq .
 Our repo’s src/data/eth_effectiveness_pull.py expects this endpoint to exist.
 
 6) BigQuery vs Lighthouse
+   
 | Capability                | BigQuery   | Lighthouse |
 | ------------------------- | ---------- | ---------- |
-| MEV-Boost payload history | ✅          | ❌          |
-| Execution layer data      | ✅          | ❌          |
-| Validator registry        | ❌          | ✅          |
-| Attestation effectiveness | ❌          | ✅          |
+| MEV-Boost payload history | ✅          | ❌         |
+| Execution layer data      | ✅          | ❌         |
+| Validator registry        | ❌          | ✅         |
+| Attestation effectiveness | ❌          | ✅         |
 | Pubkey labeling           | ⚠️ partial | ❌          |
 
 
