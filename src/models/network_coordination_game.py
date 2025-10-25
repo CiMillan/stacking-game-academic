@@ -56,8 +56,9 @@ def threshold_cascade(
     - synchronous: if True, synchronous updates; else asynchronous (random order each round).
     """
     A = np.asarray(A, dtype=float)
-    # Guard against NaN/Inf in user-provided adjacency
+    # Guard against NaN/Inf, and clip extreme magnitudes (defensive)
     A = np.nan_to_num(A, nan=0.0, posinf=0.0, neginf=0.0)
+    A = np.clip(A, -1e9, 1e9)
     N = A.shape[0]
     alpha = np.asarray(alpha, dtype=float).reshape(-1)
     c = np.asarray(c, dtype=float).reshape(-1)
@@ -91,7 +92,8 @@ def threshold_cascade(
     def adopted_neighbors_count(x: Array) -> Array:
         # Ensure float64 math; clean any NaN/Inf to avoid BLAS warnings
         _x = np.asarray(x, dtype=float)
-        nbr = A @ _x
+        with np.errstate(invalid="ignore", over="ignore", divide="ignore"):
+            nbr = A @ _x
         nbr = np.nan_to_num(nbr, nan=0.0, posinf=0.0, neginf=0.0)
         # Round to nearest integer count for threshold comparison
         return np.asarray(np.rint(nbr), dtype=int)
@@ -161,8 +163,9 @@ def continuous_equilibrium(
     and whether solved via direct linear solve or fixed-point iteration fallback.
     """
     A = np.asarray(A, dtype=float)
-    # Guard against NaN/Inf in user-provided adjacency
+    # Guard against NaN/Inf, and clip extreme magnitudes (defensive)
     A = np.nan_to_num(A, nan=0.0, posinf=0.0, neginf=0.0)
+    A = np.clip(A, -1e9, 1e9)
     N = A.shape[0]
     if A.shape[0] != A.shape[1]:
         raise ValueError("A must be square.")
