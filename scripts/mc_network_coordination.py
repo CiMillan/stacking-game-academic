@@ -65,7 +65,7 @@ def main():
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
     # Load or generate graph
-    if args.generate-er:
+    if args.generate_er:
         A = random_er_graph(args.n, args.p, seed=42)
         nodes = pd.Index([f"n{i}" for i in range(args.n)])
     else:
@@ -75,7 +75,7 @@ def main():
 
     N = A.shape[0]
     deg = A.sum(axis=1)
-    beta_vals = parse_grid(args.beta-grid) if hasattr(args, "beta-grid") else parse_grid(args.beta_grid)
+        beta_vals = parse_grid(args.beta_grid)
     tau_vals  = parse_grid(args.tau_grid)
 
     rng = np.random.default_rng(123)
