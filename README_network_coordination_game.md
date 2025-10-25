@@ -95,3 +95,23 @@ Measure decentralization via **HHI** or effective number of operators at equilib
 - Bramoullé, Y., Kranton, R., & D’Amours, M. (2014). Strategic interaction and networks. *AER*, 104(3), 898–930.
 
 *This section formalizes validator coordination as a network game, linking risk-adjusted utility to system-level decentralization outcomes.*
+
+
+---
+
+## 7) Interpreting the summary CSV
+
+The Monte Carlo driver writes `reports/metrics/ncg_mc_summary_*.csv`. For each grid value:
+
+- **`adopt_mean` and quantiles (`adopt_q10..adopt_q90`)** — probability mass of final adoption; higher means the cascade usually completes.  
+- **`conv_rate`** — fraction of trials that reached a fixed point within the iteration cap; near 1.0 is stable/fast.  
+- **`steps_mean`, `steps_q75`, `steps_q90`** — speed of coordination; larger values signal slower or more fragile cascades.  
+- **`is_fractional`** — `1` means **fractional thresholds** (τ) were used; `0` means **integer thresholds** (β) mode.
+
+### Mapping to PoS narratives
+
+- Vary **τ** (fractional thresholds) to represent **delegator/peer tolerance for conformity**. Higher τ demands more adopting neighbors to flip a validator → harder cascades.  
+- Vary **β** (integer-threshold mode) to represent **coordination strength** (compatibility, shared relay sets, social pressure). Higher β lowers effective thresholds → easier cascades.  
+- Compare **ETH vs Cosmos** by plugging their operator edgelists. Report adoption quantiles and time-to-equilibrium to characterize how readily each ecosystem coordinates given its topology.
+
+Tip: Convert adoption distributions into **decentralization metrics** by feeding the continuous equilibrium (or adoption weights) into HHI / \(N_{\text{eff}} = 1/\text{HHI}\) to obtain bands over τ or β.

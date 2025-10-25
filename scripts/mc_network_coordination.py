@@ -45,7 +45,18 @@ def parse_grid(s: str):
     return [] if not s else [float(x) for x in s.split(",")]
 
 def main():
-    ap = argparse.ArgumentParser(description="Monte Carlo network coordination sweeps")
+    ap = argparse.ArgumentParser(description="Monte Carlo network coordination sweeps", epilog="""
+Interpreting ncg_mc_summary_*.csv
+---------------------------------
+- adopt_mean and adopt_q10..adopt_q90: how likely the cascade completes.
+- conv_rate: fraction of trials that converged within limits.
+- steps_mean / steps_q75 / steps_q90: speed of coordination.
+- is_fractional = 1 → fractional thresholds (τ); 0 → integer thresholds (β).
+
+PoS mapping:
+- τ captures delegator/peer tolerance for conformity (harder cascades as τ rises).
+- β captures coordination strength (shared standards/relays; easier cascades as β rises).
+""", formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--edgelist", type=Path, help="CSV path with columns src,dst[,weight]")
     ap.add_argument("--generate-er", action="store_true", help="Generate an Erdos–Renyi graph instead of reading CSV")
     ap.add_argument("--n", type=int, default=200, help="ER: number of nodes")
