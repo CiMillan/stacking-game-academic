@@ -1,7 +1,7 @@
 # The Staking Game: A Risk-Adjusted Equilibrium of Validator Concentration in Proof-of-Stake Networks
 
 <!-- quick-links -->
-**Quick links:** [§4.1 Data Inputs](#41-data-inputs) · [§4.3 Reward Baseline](#43-reward-baseline) · [§5.1 Concentration (HHI)](#51-concentration-hhi) · [§5.2 Participation-adjusted HHI](#52-participation-adjusted-concentration) · [§5.3 Size–Flow Elasticity](#53-size–flow-elasticity-of-delegations) · [§5.4 LST-Adjusted Shares](#54-lst-adjusted-stake-shares) · [§5.5 Diversity Metrics](#55-diversity—client-mix--geoasn-entropy) · [§5.6 DVT Cluster Effects](#56-diversity—dvt-cluster-effects)
+**Quick links:** [§4.1 Data Inputs](#41-data-inputs) · [§4.3 Reward Baseline](#43-reward-baseline) · [§5.1 Concentration (HHI)](#51-concentration-hhi) · [§5.2 Participation-adjusted HHI](#52-participation-adjusted-concentration) · [§5.3 Size–Flow Elasticity](#53-size–flow-elasticity-of-delegations) · [§5.4 LST-Adjusted Shares](#54-lst-adjusted-stake-shares) · [§5.5 Diversity Metrics](#55-diversity—client-mix--geoasn-entropy) · [§5.6 DVT Cluster Effects](#56-diversity—dvt-cluster-effects) · [§6 Monte Carlo](#6-monte-carlo-simulations)
 
 
 
@@ -328,3 +328,45 @@ Several extensions follow naturally:
 
 
 See [BigQuery + Lighthouse reproduction guide](docs/BIGQUERY_REPRO.md) for a no-API version of the data pipeline.
+
+## 6 Monte Carlo Simulations
+
+Quantifies decentralization **under parameter uncertainty** by sampling model parameters and solving the staking-game equilibrium on each draw.
+
+### Model
+For operator \(i\) with stake share \(s_i\), baseline reward \(R\), linear cost \(a_i\), convex cost \(\gamma_i\), correlated-risk intensity \(b\), correlation \(\rho\), and a social/delegation penalty scale \(\delta\), utility is
+\[
+U_i(s_i;\lambda) = s_i R - a_i s_i - \tfrac12(\gamma_i + b\rho + \delta\,C(S))s_i^2 - \lambda s_i,\quad C(S)=\sum_j s_j^2,\ \sum_i s_i=1.
+\]
+FOCs give a water-filling solution
+\[
+s_i^\*(\lambda)=\max\!\left\{0,\ \frac{R - a_i - \lambda}{\gamma_i + b\rho + \delta\,C(S)}\right\},
+\]
+solved by a fixed-point iteration on \(C(S)\) with inner bisection on \(\lambda\).
+
+### Outputs per simulation
+- **Concentration:** \( \mathrm{HHI}=\sum_i s_i^2\), \(N_{\mathrm{eff}}=1/\mathrm{HHI}\), Top-k shares.
+- **Tail risks:** \(\mathbb{P}(N_{\mathrm{eff}} < 30), \mathbb{P}(N_{\mathrm{eff}} < 25), \mathbb{P}(N_{\mathrm{eff}} < 20)\).
+
+### How to run
+```bash
+make mc-equilibrium
+# or tweak parameters:
+.venv/bin/python scripts/sim_mc_equilibrium.py --network ethereum --N 200 --draws 5000 --seed 42 --save-samples
+Artifacts land in runs/<network>/mc_equilibrium/<timestamp>/:
+
+summary.csv (tail probabilities + medians),
+
+quantiles.csv (5/25/50/75/95th for HHI, N_eff, Top-k),
+
+samples.parquet (if --save-samples).
+
+Variance reduction is enabled by default (Latin Hypercube for 
+𝑏
+,
+𝜌
+,
+𝛿
+b,ρ,δ + antithetic variates for 
+𝜌
+ρ). Disable with --no-lhs / --no-antithetic.
