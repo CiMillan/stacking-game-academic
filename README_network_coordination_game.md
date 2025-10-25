@@ -2,21 +2,21 @@
 
 ## Overview
 We extend **The Staking Game** by embedding validator interactions within a **network coordination game**.  
-Each validator is a node \( i \in V \) on a network \( G=(V,E) \). Validators influence each other’s adoption of coordination-sensitive behaviors—e.g., MEV-Boost, distributed validator tech (DVT), and client diversity.  
+Each validator is a node $i \in V$ on a network $G=(V,E)$. Validators influence each other’s adoption of coordination-sensitive behaviors—e.g., MEV-Boost, distributed validator tech (DVT), and client diversity.  
 Coordination can yield decentralized or centralized equilibria depending on network effects and risk.
 
 ---
 
 ## 1. Model Setup (Binary Actions)
 
-Each validator chooses \( a_i \in \{0,1\} \) (adopt vs not).
+Each validator chooses $a_i \in \{0,1\}$ (adopt vs not).
 
-Parameters per validator \( i \):
+Parameters per validator $i$:
 
-- \( \alpha_i \): intrinsic private benefit of adopting  
-- \( c_i \): private cost (ops, risk, compliance)  
-- \( \beta>0 \): coordination strength; benefit from adopting neighbors  
-- \( N(i) \): neighbors of \( i \) in \( G \)
+- $\alpha_i$: intrinsic private benefit of adopting  
+- $c_i$: private cost (ops, risk, compliance)  
+- $\beta>0$: coordination strength; benefit from adopting neighbors  
+- $N(i)$: neighbors of $i$ in $G$
 
 **Payoff**
 
@@ -50,7 +50,7 @@ Best-response dynamics (asynchronous or synchronous) generate adoption cascades 
 
 ## 2. Continuous Actions (Smooth Response)
 
-Let \( a_i \in [0,1] \) with quadratic costs and adjacency matrix \( A \):
+Let $a_i \in [0,1]$ with quadratic costs and adjacency matrix $A$:
 
 $$
 u_i = \alpha_i a_i + \beta a_i \sum_j A_{ij} a_j - \tfrac{1}{2}\gamma_i a_i^2, \quad \gamma_i > 0
@@ -62,7 +62,7 @@ $$
 a_i^{*} = \frac{\alpha_i + \beta \sum_j A_{ij} a_j}{\gamma_i}
 $$
 
-Stacked form with \( \Gamma = \mathrm{diag}(\gamma_1,\dots,\gamma_N) \):
+Stacked form with $\Gamma = \mathrm{diag}(\gamma_1,\dots,\gamma_N)$:
 
 $$
 (\Gamma - \beta A)\, a^{*} = \alpha \mathbf{1}
@@ -74,15 +74,15 @@ $$
 \rho(\beta \Gamma^{-1} A) < 1
 $$
 
-where \( \rho(\cdot) \) is the spectral radius.
+where $\rho(\cdot)$ is the spectral radius.
 
 ---
 
 ## 3. Stability & Interpretation
 
-- Low \( \beta \): decisions are local → more decentralization  
-- High \( \beta \): strong peer pressure → coordination traps possible  
-- High \( \gamma_i \): steep marginal cost → resistance to conformity  
+- Low $\beta$: decisions are local → more decentralization  
+- High $\beta$: strong peer pressure → coordination traps possible  
+- High $\gamma_i$: steep marginal cost → resistance to conformity  
 - Network topology (hubs, clustering, core–periphery, temporal edges) shapes partial equilibria and inertia  
 
 **Potential game & noise.**  
@@ -92,15 +92,15 @@ With symmetric interactions this is a potential game. Adding decision noise (log
 
 ## 4. PoS Mapping (Examples)
 
-Action \( a_i \) can mean “adopt DVT,” “run MEV-Boost with a vetted relay set,” or “meet client-diversity targets.”
+Action $a_i$ can mean “adopt DVT,” “run MEV-Boost with a vetted relay set,” or “meet client-diversity targets.”
 
 | Symbol | PoS interpretation |
 |--------|--------------------|
-| \( a_i \) | Adoption level (binary or fractional) |
-| \( \alpha_i \) | Private efficiency / compliance benefit |
-| \( c_i \) | Ops risk, switching costs, regulatory overhead |
-| \( \beta \) | Coordination gains (compatibility, inclusion distance) |
-| \( \gamma_i \) | Risk convexity (slashing / externality sensitivity) |
+| $a_i$ | Adoption level (binary or fractional) |
+| $\alpha_i$ | Private efficiency / compliance benefit |
+| $c_i$ | Ops risk, switching costs, regulatory overhead |
+| $\beta$ | Coordination gains (compatibility, inclusion distance) |
+| $\gamma_i$ | Risk convexity (slashing / externality sensitivity) |
 
 Decentralization can be measured via **HHI** or the **effective number of operators** at equilibrium.
 
@@ -108,9 +108,9 @@ Decentralization can be measured via **HHI** or the **effective number of operat
 
 ## 5. Experiment Blueprint
 
-1. Choose \( A \) (empirical or synthetic).  
-2. Draw \( \alpha_i, c_i, \gamma_i \) from calibrated distributions.  
-3. Run best-response (binary) or solve \( (\Gamma - \beta A)a^{*} = \alpha \mathbf{1} \) (continuous).  
+1. Choose $A$ (empirical or synthetic).  
+2. Draw $\alpha_i, c_i, \gamma_i$ from calibrated distributions.  
+3. Run best-response (binary) or solve $(\Gamma - \beta A)a^{*} = \alpha \mathbf{1}$ (continuous).  
 4. Record cascade size, equilibrium adoption, HHI, and time-to-equilibrium.  
 5. Stress-test via rewired graphs and parameter perturbations; use Monte Carlo for uncertainty bands.
 
@@ -132,7 +132,7 @@ The Monte Carlo driver writes `reports/metrics/ncg_mc_summary_*.csv`. For each g
 - Compare **Ethereum** vs **Cosmos** by plugging their operator edgelists. Report adoption quantiles and time-to-equilibrium to characterize how readily each ecosystem coordinates given its topology.
 
 Tip: convert adoption distributions into **decentralization metrics** by feeding the continuous equilibrium (or adoption weights) into HHI, and compute  
-\( N_{\text{eff}} = 1/\text{HHI} \) to obtain decentralization bands over τ or β.
+$N_{\text{eff}} = 1/\text{HHI}$ to obtain decentralization bands over τ or β.
 
 ---
 
