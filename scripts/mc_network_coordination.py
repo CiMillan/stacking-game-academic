@@ -75,7 +75,7 @@ def main():
 
     N = A.shape[0]
     deg = A.sum(axis=1)
-        beta_vals = parse_grid(args.beta_grid)
+    beta_vals = parse_grid(args.beta_grid)
     tau_vals  = parse_grid(args.tau_grid)
 
     rng = np.random.default_rng(123)
