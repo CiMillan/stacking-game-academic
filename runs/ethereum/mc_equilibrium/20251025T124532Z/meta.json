@@ -1,0 +1,30 @@
+{
+  "args": {
+    "network": "ethereum",
+    "N": 200,
+    "draws": 2000,
+    "R": 0.05,
+    "mu_a": -4.0,
+    "sig_a": 0.7,
+    "mu_g": -1.5,
+    "sig_g": 0.7,
+    "kb": 2.0,
+    "thetab": 0.02,
+    "alpha": 3.0,
+    "beta": 7.0,
+    "sig_delta": 0.05,
+    "seed": 7,
+    "use_lhs": true,
+    "antithetic": true,
+    "save_samples": true,
+    "out": null
+  },
+  "ts": "20251025T124532Z",
+  "outdir": "runs/ethereum/mc_equilibrium/20251025T124532Z",
+  "HHI_med": 0.037176145490831154,
+  "N_eff_med": 26.8989695413229,
+  "Top10_med": 0.5035744639353392,
+  "P(N_eff<30)": 0.8115,
+  "P(N_eff<25)": 0.1455,
+  "P(N_eff<20)": 0.0
+}
