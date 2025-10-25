@@ -59,7 +59,12 @@ def main():
     for c in ["Top1","Top5","Top10"]:
         if c in q_fmt: q_fmt[c] = q_fmt[c].map(lambda v: f"{v:.3f}")
     try:
+    try:
     lines.append(q_fmt[["quantile"]+keep].to_markdown(index=False))
+except Exception:
+    # markdown fallback if tabulate is missing
+    lines.append("\n```\n" + q_fmt[["quantile"]+keep].to_string(index=False) + "\n```")
+
 except Exception:
     # Fallback: simple text table if tabulate is missing
     lines.append("\n```
